@@ -33,8 +33,8 @@ API_AVAILABLE(ios(14.0))
 
 /// Accesses the logger associated with this `SCNLog` instance.
 ///
-/// - Returns: A `OSLog` instance configured with the specified subsystem and category.
-- (OSLog *)logger;
+/// - Returns: A `os_log_t` instance configured with the specified subsystem and category.
+- (os_log_t)logger;
 
 @end
 

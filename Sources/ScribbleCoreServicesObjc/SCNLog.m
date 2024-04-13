@@ -19,8 +19,8 @@
     return self;
 }
 
-- (OSLog *)logger {
-    return [OSLog logWithSubsystem:self.subsystem category:self.category];
+- (os_log_t)logger {
+    return os_log_create([self.subsystem UTF8String], [self.category UTF8String]);
 }
 
 @end
