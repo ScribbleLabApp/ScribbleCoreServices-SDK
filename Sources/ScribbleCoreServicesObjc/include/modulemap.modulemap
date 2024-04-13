@@ -1,0 +1,4 @@
+
+module ScribbleCoreServicesObjc {
+    header "ScribbleCoreServices.h"
+}
