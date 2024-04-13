@@ -12,12 +12,18 @@ let package = Package(
             targets: ["ScribbleCoreServices"]),
         .library(name: "ScribbleCoreServicesObjc", targets: ["ScribbleCoreServicesObjc"])
     ],
+    dependencies: [
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.24.0"),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "ScribbleCoreServices",
-            dependencies: [],
+            dependencies: [
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk")
+            ],
             path: "Sources/ScribbleCoreServices",
             publicHeadersPath: ".",
             cSettings: [
