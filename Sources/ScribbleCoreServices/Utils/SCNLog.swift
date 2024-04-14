@@ -20,23 +20,23 @@ public struct SCNLog {
     public let subsystem: String
     
     /// The category within the subsystem to further categorize log messages.
-    public var category: String
+    //  public var category: String?
     
     /// Initializes a new `SCNLog` instance with the provided subsystem and category.
     ///
     /// - Parameters:
     ///   - subsystem: The subsystem to categorize log messages. Typically, you'd use the bundle identifier of your app.
     ///   - category: The category within the subsystem to further categorize log messages.
-    public init(subsystem: String, category: String) {
+    public init(subsystem: String) { //  category: String?
         self.subsystem = subsystem
-        self.category = category
+        // self.category = category
     }
     
     /// Accesses the logger associated with this `SCNLog` instance.
     ///
     /// - Returns: A `Logger` instance configured with the specified subsystem and category.
-    public var logger: Logger {
-        Logger(subsystem: subsystem, category: category)
+    public func logger(category: String) -> Logger {
+        return Logger(subsystem: subsystem, category: category)
     }
 }
 
@@ -47,7 +47,8 @@ public extension SCNLog {
     /// - Parameters:
     ///   - message: The error message to log.
     func error(_ message: String) {
-        logger.error("\(message)")
+        let logger = self.logger(category: "Error")
+        logger.error("ERROR: \(message)")
     }
 }
 
