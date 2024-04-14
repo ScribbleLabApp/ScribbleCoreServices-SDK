@@ -33,6 +33,11 @@ import Foundation
 
         self.color = Color(red: red / 255.0, green: green / 255.0, blue: blue / 255.0)
     }
+    
+    init(hex: Int) {
+        let hexString = String(format: "#%06X", hex)
+        self.init(hex: hexString)
+    }
 
     init(binary: String) {
         guard let decimal = UInt64(binary, radix: 2) else {
@@ -73,8 +78,15 @@ import Foundation
 
 @available(iOS 17.0, *)
 public extension SCNColor {
-    static let primary = SCNColor(.primary)
-    static let secondary = SCNColor(.secondary)
+    static let primary: SCNColor = SCNColor(.primary)
+    static let secondary: SCNColor = SCNColor(.secondary)
+    static let accentColor: SCNColor = SCNColor(.accentColor)
+    
+    static let black: SCNColor = SCNColor(.black)
+    static let blue: SCNColor = SCNColor(hex: 0x2A97FF) // #2A97FF
+    static let brown: SCNColor = SCNColor(.brown)
+    static let clear: SCNColor = SCNColor(.clear)
+    static let cyan: SCNColor = SCNColor(.cyan)
 }
 
 @available(iOS 17.0, *)
