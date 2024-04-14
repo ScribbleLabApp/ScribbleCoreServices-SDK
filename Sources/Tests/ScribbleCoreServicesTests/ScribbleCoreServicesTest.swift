@@ -1,9 +1,12 @@
-//
-//  ScribbleCoreServicesTest.swift
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Unit Tests for ScribbleLabApp's Core Services.
+ 
+Copyright (c) 2024 ScribbleLabApp.
+Author: ScribbleLabApp (NH)
+*/
 
 import XCTest
 
