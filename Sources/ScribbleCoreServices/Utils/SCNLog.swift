@@ -50,6 +50,33 @@ public extension SCNLog {
         let logger = self.logger(category: "Error")
         logger.error("ERROR: \(message)")
     }
+    
+    /// Logs a debug message.
+    ///
+    /// - Parameters:
+    ///   - message: The debug message to log.
+    func debug(_ message: String) {
+        let logger = self.logger(category: "Debug")
+        logger.debug("DEBUG: \(message)")
+    }
+    
+    /// Logs a warning message.
+    ///
+    /// - Parameters:
+    ///   - message: The warning message to log.
+    func warning(_ message: String) {
+        let logger = self.logger(category: "Warning")
+        logger.warning("WARNING: \(message)")
+    }
+    
+    /// Logs a memory warning message.
+    ///
+    /// - Parameters:
+    ///   - message: The memory warning message to log.
+    func memoryWarning(_ message: String) {
+        let logger = self.logger(category: "MemoryWarning")
+        logger.error("MEMORY WARNING: \(message)")
+    }
 }
 
 /// Extension to `View` enabling logging functionality.
