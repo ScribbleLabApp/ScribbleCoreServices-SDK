@@ -40,6 +40,17 @@ public struct SCNLog {
     }
 }
 
+@available(iOS 17.0, *)
+public extension SCNLog {
+    /// Logs an error message.
+    ///
+    /// - Parameters:
+    ///   - message: The error message to log.
+    func error(_ message: String) {
+        logger.error("\(message)")
+    }
+}
+
 /// Extension to `View` enabling logging functionality.
 ///
 /// - Requires: iOS 17.0 or later.
@@ -60,7 +71,7 @@ public extension View {
     ///
     /// - Parameter closure: The block of code to be logged.
     /// - Returns: A view that logs the provided closure when executed.
-    public func scnLog(_ closure: () -> Void) -> some View {
+    func scnLog(_ closure: () -> Void) -> some View {
         closure()
         
         return self
