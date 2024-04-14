@@ -18,7 +18,7 @@
     return self;
 }
 
-- (instancetype)initWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue {
+- (instancetype)initWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue { // FIXME: Add alpha:(CGFloat)alpha;
     return [self initWithUIColor:[UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1.0]];
 }
 
