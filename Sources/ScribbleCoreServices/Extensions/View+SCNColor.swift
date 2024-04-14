@@ -1,15 +1,18 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Extension of SwiftUI.View to use the `.foregroundColor(_:)` modifier
+with an SCNColor.
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import Foundation
 import SwiftUI
 
 @available(iOS 17.0, *)
-extension View {
+public extension View {
     /// Sets the foreground color of this view to the specified SCNColor.
     ///
     /// - Parameter color: The SCNColor to use as the foreground color.

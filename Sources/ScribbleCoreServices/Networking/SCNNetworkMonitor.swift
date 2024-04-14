@@ -1,9 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+NetworkMonitor used by ScribbleLabApp
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import Foundation
 import Network

@@ -1,13 +1,24 @@
-//
-//  SCNColor.m
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Implementation of ScribbleLabApp's own SwiftUI Color like implementation (objc)
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 #import <Foundation/Foundation.h>
 #import "SCNColor.h"
 
+/**
+ Implementation of ScribbleLab's own colo implementation used by ScribbleLabApp.
+
+ This service caches images retrieved from URLs for faster retrieval in subsequent requests.
+
+ - Author: ScribbleLabApp
+ - Copyright: © 2024 ScribbleLabApp.
+
+ */
 @implementation SCNColor
 
 - (instancetype)initWithUIColor:(UIColor *)color {

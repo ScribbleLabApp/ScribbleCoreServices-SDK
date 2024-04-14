@@ -1,15 +1,17 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+ImageCaching service used by ScribbleLabApp.
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import Foundation
 import SwiftUI
 
 @available(iOS 17.0, *)
-class SCNImageCache {
+public class SCNImageCache {
     static let shared = SCNImageCache()
     private init() {}
 

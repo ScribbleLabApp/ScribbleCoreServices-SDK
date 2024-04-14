@@ -1,9 +1,11 @@
-//
-//  Header.h
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Declaration of ImageCaching service (objc) used by ScribbleLabApp.
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>

@@ -1,14 +1,16 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 13.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Extension for a custom launch process used by ScribbleLabApp
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import Foundation
 
 #if os(macOS)
-extension Process {
+public extension Process {
     enum LaunchError: Swift.Error {
         case exit(Int32)
         case signal(Int32)

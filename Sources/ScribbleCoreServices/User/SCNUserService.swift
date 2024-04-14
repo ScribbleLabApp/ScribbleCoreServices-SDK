@@ -1,9 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 13.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+UserService protocol used by ScribbleLabApp's SLAuthService
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import Foundation
 
@@ -23,7 +25,7 @@ import Foundation
 /// - Requires: iOS 17.0 or later.
 /// - Tag: SCNUserService
 @available(iOS 17.0, *)
-protocol SCNUserService {
+public protocol SCNUserService {
     
     /// The type representing a user. Must conform to `Identifiable`, `Hashable`, and `Codable`.
     associatedtype UserType: Identifiable & Hashable & Codable

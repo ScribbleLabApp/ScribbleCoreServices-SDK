@@ -1,9 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 13.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+ScribbleLabApp's own SwiftUI Color like implementation
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import SwiftUI
 import Foundation

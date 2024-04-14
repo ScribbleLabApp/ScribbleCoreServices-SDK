@@ -1,15 +1,17 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 13.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Simple Protocol for LocalAuthentication (LA) used by ScribbleLabApp.
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import Foundation
 import LocalAuthentication
 
 /// Protocol defining authentication methods.
-protocol SCNLA {
+public protocol SCNLA {
     /// Typealias for biometric authentication completion handler
     typealias BiometricUnlockCompletion = (Bool, Error?) -> Void
     

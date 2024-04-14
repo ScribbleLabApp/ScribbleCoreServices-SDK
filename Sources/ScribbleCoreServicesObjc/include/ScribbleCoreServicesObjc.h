@@ -1,9 +1,11 @@
-//
-//  Header.h
-//  
-//
-//  Created by Nevio Hirani on 13.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Umbrella header for ScribbleCoreServices
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 #import <Foundation/Foundation.h>
 

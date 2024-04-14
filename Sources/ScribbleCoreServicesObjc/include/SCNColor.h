@@ -1,9 +1,11 @@
-//
-//  Header.h
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Declaration of ScribbleLabApp's own SwiftUI Color like implementation (objc)
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>

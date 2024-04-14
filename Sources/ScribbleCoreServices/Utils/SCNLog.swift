@@ -1,9 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 13.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Core Logging Service used by ScribbleLabApp.
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import os
 import SwiftUI
@@ -78,31 +80,3 @@ public extension SCNLog {
         logger.error("MEMORY WARNING: \(message)")
     }
 }
-
-/// Extension to `View` enabling logging functionality.
-///
-/// - Requires: iOS 17.0 or later.
-///
-/// - Tag: SCNViewLogging
-@available(iOS 17.0, *)
-public extension View {
-    
-    /// Logs a block of code with optional context information.
-    ///
-    /// Example usage:
-    /// ```swift
-    /// SomeSwiftUIView()
-    ///     .scnLog {
-    ///         // Code you need to run
-    ///     }
-    /// ```
-    ///
-    /// - Parameter closure: The block of code to be logged.
-    /// - Returns: A view that logs the provided closure when executed.
-    func scnLog(_ closure: () -> Void) -> some View {
-        closure()
-        
-        return self
-    }
-}
-

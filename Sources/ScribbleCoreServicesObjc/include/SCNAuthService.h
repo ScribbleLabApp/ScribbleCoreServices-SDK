@@ -1,9 +1,11 @@
-//
-//  Header.h
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+Declaration of SCNAuthService Protocol for ScribbleLabApp's AuthService (objc)
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 #import <Foundation/Foundation.h>
 

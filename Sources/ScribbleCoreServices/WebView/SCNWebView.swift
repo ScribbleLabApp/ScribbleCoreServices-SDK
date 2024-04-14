@@ -1,9 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Nevio Hirani on 14.04.24.
-//
+/*
+See the LICENSE file for this Package licensing information.
+
+Abstract:
+ScribbleLab's own implementation of WKWebView.
+ 
+Copyright (c) 2024 ScribbleLabApp.
+*/
 
 import SwiftUI
 import WebKit
@@ -71,4 +73,3 @@ struct SCNWebView: UIViewControllerRepresentable {
         }
     }
 }
-
