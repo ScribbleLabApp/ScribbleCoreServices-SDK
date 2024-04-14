@@ -40,5 +40,11 @@ let package = Package(
             path: "Sources/ScribbleCoreServicesObjc",
             publicHeadersPath: "include"
         ),
+        .testTarget(
+            name: "ScribbleCoreServicesTest",
+            dependencies: [
+                "ScribbleCoreServices"
+            ],
+            path: "Sources/Tests/ScribbleCoreServicesTests"),
     ]
 )
