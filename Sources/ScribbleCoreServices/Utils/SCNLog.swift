@@ -14,7 +14,7 @@ import Foundation
 ///
 /// - Tag: SCNLog
 @available(iOS 17.0, *)
-struct SCNLog {
+public struct SCNLog {
     
     /// The subsystem to categorize log messages.
     let subsystem: String
