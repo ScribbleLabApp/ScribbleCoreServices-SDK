@@ -6,21 +6,19 @@
 //
 
 #import "SCNLog.h"
-#import <os/log.h>
 
 @implementation SCNLog
 
-- (instancetype)initWithSubsystem:(NSString *)subsystem category:(NSString *)category {
+- (instancetype)initWithSubsystem:(NSString *)subsystem {
     self = [super init];
     if (self) {
         _subsystem = [subsystem copy];
-        _category = [category copy];
     }
     return self;
 }
 
-- (os_log_t)logger {
-    return os_log_create([self.subsystem UTF8String], [self.category UTF8String]);
+- (os_log_t)loggerForCategory:(NSString *)category {
+    return os_log_create([self.subsystem UTF8String], [category UTF8String]);
 }
 
 @end
