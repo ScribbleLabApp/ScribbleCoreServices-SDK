@@ -12,7 +12,7 @@ ScribbleCoreServices-SDK provides essential core services for ScribbleLabApp's i
 
 You can install `ScribbleCoreServices-SDK` into your Xcode project via SPM. To learn more about SPM, click [here](https://swift.org/package-manager/)
 
-1. In Xcode 12, open your project and navigate to File → Swift Packages → Add Package Dependency...
+1. In Xcode 15, open your project and navigate to File → Swift Packages → Add Package Dependency...
 2. Paste the repository URL (https://github.com/ScribbleLabApp/ScribbleCoreServices-SDK.git) and click Next.
 3. For Version, verify it's **Up to next major**.
 4. Click Next and select the ScribbleCoreServices-SDK package.
