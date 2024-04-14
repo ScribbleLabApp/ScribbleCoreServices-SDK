@@ -1,4 +1,6 @@
 
 module ScribbleCoreServicesObjc {
-    header "ScribbleCoreServices.h"
+    umbrella header "ScribbleCoreServices.h"
+    export *
+    module * { export * }
 }
