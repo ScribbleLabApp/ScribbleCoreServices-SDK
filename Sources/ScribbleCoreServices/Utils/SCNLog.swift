@@ -79,4 +79,13 @@ public extension SCNLog {
         let logger = self.logger(category: "MemoryWarning")
         logger.error("MEMORY WARNING: \(message)")
     }
+    
+    /// Logs a general message.
+    ///
+    /// - Parameters:
+    ///   - message: The message to log.
+    func log(_ message: String) {
+        let logger = self.logger(category: "General")
+        logger.log("LOG: \(message)")
+    }
 }

@@ -13,66 +13,58 @@ import XCTest
 @testable import ScribbleCoreServices
 
 final class SCNLogTests: XCTestCase {
-    // MARK: - Properties
-    var scnLogger: SCNLog!
+    
+    var sut: SCNLog!
 
-    // MARK: - Setup and Teardown
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        /// Initialize SCNLog with a subsystem for testing
-        scnLogger = SCNLog(subsystem: "com.example.app")
+        sut = SCNLog(subsystem: "com.example.app")
     }
 
     override func tearDownWithError() throws {
-        scnLogger = nil
+        sut = nil
         try super.tearDownWithError()
     }
     
     // MARK: - Test methods
+    func testLogging() throws {
+        let msg = "This is a log message."
+        
+        sut.log(msg)
+        
+        XCTAssertEqual(msg, "LOG: \(msg)")
+    }
+    
     func testErrorLogging() throws {
-        // Given
-        let errorMessage = "This is an error message."
+        let errorMsg = "This is an error message."
         
-        // When
-        scnLogger.error(errorMessage)
+        sut.error(errorMsg)
         
-        // Then
-        // In XCTest, you typically use print statements to check if logging has occurred
-        // You can also verify logs by inspecting system logs using OSLog to read log entries
-        print("Error logged: \(errorMessage)")
+        XCTAssertEqual(errorMsg, "ERROR: \(errorMsg)")
     }
     
     func testDebugLogging() throws {
-        // Given
-        let debugMessage = "This is a debug message."
+        let debugMsg = "This is a debug message."
         
-        // When
-        scnLogger.debug(debugMessage)
+        sut.debug(debugMsg)
         
-        // Then
-        print("Debug logged: \(debugMessage)")
+        XCTAssertEqual(debugMsg, "DEBUG: \(debugMsg)")
     }
     
     func testWarningLogging() throws {
-        // Given
-        let warningMessage = "This is a warning message."
+        let warningMsg = "This is a warning message."
+ 
+        sut.warning(warningMsg)
         
-        // When
-        scnLogger.warning(warningMessage)
-        
-        // Then
-        print("Warning logged: \(warningMessage)")
+        XCTAssertEqual(warningMsg, "WARNING: \(warningMsg)")
     }
     
     func testMemoryWarningLogging() throws {
-        // Given
-        let memoryWarningMessage = "This is a memory warning message."
-        
-        // When
-        scnLogger.memoryWarning(memoryWarningMessage)
-        
-        // Then
-        print("Memory warning logged: \(memoryWarningMessage)")
+        let memWarningMsg = "This is a memory warning message."
+
+        sut.memoryWarning(memWarningMsg)
+
+        XCTAssertEqual(memWarningMsg, "MEMORY WARNING: \(memWarningMsg)")
     }
 }
