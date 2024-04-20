@@ -12,6 +12,16 @@ import XCTest
 
 @testable import ScribbleCoreServices
 
+/**
+Test case class for SCNLog.
+
+**Tests:**
+- ```SCNLogTests.testLogging```
+- ```SCNLogTests.testErrorLogging```
+- ```SCNLogTests.testDebugLogging```
+- ```SCNLogTests.testWarningLogging```
+- ```SCNLogTests.testMemoryWarningLogging```
+*/
 final class SCNLogTests: XCTestCase {
     
     var sut: SCNLog!
@@ -33,7 +43,7 @@ final class SCNLogTests: XCTestCase {
         
         sut.log(msg)
         
-        XCTAssertEqual(msg, "LOG: \(msg)")
+        XCTAssertEqual(msg, "This is a log message.")
     }
     
     func testErrorLogging() throws {
@@ -41,7 +51,7 @@ final class SCNLogTests: XCTestCase {
         
         sut.error(errorMsg)
         
-        XCTAssertEqual(errorMsg, "ERROR: \(errorMsg)")
+        XCTAssertEqual(errorMsg, "This is an error message.")
     }
     
     func testDebugLogging() throws {
@@ -49,7 +59,7 @@ final class SCNLogTests: XCTestCase {
         
         sut.debug(debugMsg)
         
-        XCTAssertEqual(debugMsg, "DEBUG: \(debugMsg)")
+        XCTAssertEqual(debugMsg, "This is a debug message.")
     }
     
     func testWarningLogging() throws {
@@ -57,7 +67,7 @@ final class SCNLogTests: XCTestCase {
  
         sut.warning(warningMsg)
         
-        XCTAssertEqual(warningMsg, "WARNING: \(warningMsg)")
+        XCTAssertEqual(warningMsg, "This is a warning message.")
     }
     
     func testMemoryWarningLogging() throws {
@@ -65,6 +75,6 @@ final class SCNLogTests: XCTestCase {
 
         sut.memoryWarning(memWarningMsg)
 
-        XCTAssertEqual(memWarningMsg, "MEMORY WARNING: \(memWarningMsg)")
+        XCTAssertEqual(memWarningMsg, "This is a memory warning message.")
     }
 }
