@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct GitHubRelease: Decodable {
+public struct GitHubRelease: Decodable {
     let tagName: String
     let preRelease: Bool
     let assets: [GitHubAsset]
 }
 
-struct GitHubAsset: Decodable {
+public struct GitHubAsset: Decodable {
     let name: String
     let downloadUrl: String
 }
@@ -21,7 +21,7 @@ struct GitHubAsset: Decodable {
 /// Errors that can occur during the update process.
 ///
 /// This enum represents various errors that can occur while handling updates, including errors related to file operations, network communication, parsing data, and API responses.
-enum SCNUpdateError: Error {
+public enum SCNUpdateError: Error {
     /// Indicates that the DMG file is invalid.
     case invalidDMGFile(code: Int)
     
@@ -93,7 +93,7 @@ enum SCNUpdateError: Error {
 /// }
 /// ```
 @available(macOS 14.0, *)
-struct SCNUpdateService {
+public struct SCNUpdateService {
     
     static let shared = SCNUpdateService()
     
@@ -306,5 +306,16 @@ struct SCNUpdateService {
         process.arguments = ["detach", url.path]
         process.launch()
     }
+}
+#elseif os(iOS) || os(visionOS)
+/// A service for handling updates from GitHub releases.
+///
+/// This service allows fetching the latest releases from a GitHub repository, performing necessary actions for updating the application and link to the latest App Store release.
+///
+/// - Note: This service is designed for iOS.
+///
+@available(iOS 17.0, *)
+public struct SCNUpdateService {
+    
 }
 #endif
