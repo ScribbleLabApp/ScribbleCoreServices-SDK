@@ -340,17 +340,19 @@ public struct SCNUpdateService {
 public struct SCNUpdateService {
     static let shared = SCNUpdateService()
     
-    /// The GitHub repository name in the format "<username>/<repository>".
+    /// The GitHub repository name in the format "`<username>/<repository>`".
     let repo = "ScribbleLabApp/ScribbleLab"
     
-    //var isUpdateAvailable: Bool = false
+    /// A Boolean value indicating whether an update is available.
+    ///
+    /// This state variable is used to track whether there is a newer version of the application available for update.
     @State private var isUpdateAvailable: Bool = false
     
     /// Fetches the latest releases from GitHub.
     ///
     ///  - Parameters:
-    ///   - channel: The channel for which releases are to be fetched. Valid values are "stable" or "pre-release".
-    ///   - completion: A closure to be called once the fetch operation is completed. It returns a result with an array of `GitHubRelease` on success or an `SCNUpdateError` on failure.
+    ///     - channel: The channel for which releases are to be fetched. Valid values are "stable" or "pre-release".
+    ///     - completion: A closure to be called once the fetch operation is completed. It returns a result with an array of `GitHubRelease` on success or an `SCNUpdateError` on failure.
     func fetchReleases(channel: String, completion: @escaping (Result<[GitHubRelease], SCNUpdateError>) -> Void) {
         let url: URL
         if channel == "stable" {
@@ -414,7 +416,7 @@ public struct SCNUpdateService {
     /// - Parameters:
     ///     - channel: The channel for which updates are to be checked. Valid values are "stable" or "pre-release".
     func checkForUpdate(channel: String) {
-        fetchReleases(channel: channel) {  result in
+        fetchReleases(channel: channel) { result in
             switch result {
             case .success(let releases):
                 if let latestRelease = releases.first {
