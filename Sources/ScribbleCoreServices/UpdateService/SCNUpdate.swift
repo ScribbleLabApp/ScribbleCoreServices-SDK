@@ -6,25 +6,24 @@
 //
 
 import Foundation
+import SwiftUI
 
 /// Represents a GitHub release containing information about the release tag, whether it's a pre-release, and the assets associated with the release.
 @available(iOS 17.0, macOS 14.0, *)
 public struct GitHubRelease: Decodable {
-    
     /// The name of the release tag.
     let tagName: String
     
     /// Indicates whether the release is a pre-release.
     let preRelease: Bool
     
-    /// An array of `GitHubAsset` objects associated with the release.
+    /// An array of ```GitHubAsset``` objects associated with the release.
     let assets: [GitHubAsset]
 }
 
 /// Represents an asset associated with a GitHub release, containing information about the asset name and its download URL.
 @available(iOS 17.0, macOS 14.0, *)
 public struct GitHubAsset: Decodable {
-    
     /// The name of the asset.
     let name: String
     
@@ -123,8 +122,13 @@ public struct SCNUpdateService {
     /// - Parameters:
     ///   - channel: The channel for which releases are to be fetched. Valid values are "stable" or "pre-release".
     ///   - completion: A closure to be called once the fetch operation is completed. It returns a result with an array of `GitHubRelease` on success or an `SCNGitHubError` on failure.
-    func fetchReleases(channel: String, completion: @escaping (Result<[GitHubRelease], SCNGitHubError>) -> Void) {
-        let url = URL(string: "https://api.github.com/repos/\(repo)/releases/latest")!
+    func fetchReleases(channel: String, completion: @escaping (Result<[GitHubRelease], SCNUpdateError>) -> Void) {
+        let url: URL
+            if channel == "stable" {
+                url = URL(string: "https://api.github.com/repos/\(repo)/releases/latest")!
+            } else { // "pre"
+                url = URL(string: "https://api.github.com/repos/\(repo)/releases/")!
+            }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(.networkError(code: -100)))
@@ -144,7 +148,11 @@ public struct SCNUpdateService {
                 return
             } else if !(200...299).contains(httpResponse.statusCode) {
                 let errorMessage = String(data: data, encoding: .utf8)
-                completion(.failure(.apiError(statusCode: httpResponse.statusCode, code: httpResponse.statusCode, message: errorMessage)))
+                completion(.failure(.apiError(
+                    statusCode: httpResponse.statusCode, 
+                    code: httpResponse.statusCode,
+                    message: errorMessage)
+                ))
                 return
             }
             
@@ -328,9 +336,100 @@ public struct SCNUpdateService {
 /// This service allows fetching the latest releases from a GitHub repository, performing necessary actions for updating the application and link to the latest App Store release.
 ///
 /// - Note: This service is designed for iOS.
-///
-@available(iOS 17.0, *)
+@available(iOS 17.0, visionOS 1.0, *)
 public struct SCNUpdateService {
     static let shared = SCNUpdateService()
+    
+    /// The GitHub repository name in the format "<username>/<repository>".
+    let repo = "ScribbleLabApp/ScribbleLab"
+    
+    //var isUpdateAvailable: Bool = false
+    @State private var isUpdateAvailable: Bool = false
+    
+    /// Fetches the latest releases from GitHub.
+    ///
+    ///  - Parameters:
+    ///   - channel: The channel for which releases are to be fetched. Valid values are "stable" or "pre-release".
+    ///   - completion: A closure to be called once the fetch operation is completed. It returns a result with an array of `GitHubRelease` on success or an `SCNUpdateError` on failure.
+    func fetchReleases(channel: String, completion: @escaping (Result<[GitHubRelease], SCNUpdateError>) -> Void) {
+        let url: URL
+        if channel == "stable" {
+            url = URL(string: "https://api.github.com/repos/\(repo)/releases/latest")!
+        } else {
+            url = URL(string: "https://api.github.com/repos/\(repo)/releases/")!
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.networkError(code: -100)))
+                return
+            }
+            
+            guard let data = data, error == nil else {
+                completion(.failure(.networkError(code: -101)))
+                return
+            }
+            
+            if httpResponse.statusCode == 404 {
+                completion(.failure(.noReleasesFound(code: -404)))
+                return
+            } else if httpResponse.statusCode == 403 {
+                completion(.failure(.userNotEligible(code: -403)))
+                return
+            } else if !(200...299).contains(httpResponse.statusCode) {
+                let errorMessage = String(data: data, encoding: .utf8)
+                completion(.failure(.apiError(
+                    statusCode: httpResponse.statusCode,
+                    code: httpResponse.statusCode,
+                    message: errorMessage)
+                ))
+                return
+            }
+            
+            do {
+                let releases = try JSONDecoder().decode([GitHubRelease].self, from: data)
+                let filteredReleases: [GitHubRelease]
+                if channel.lowercased() == "stable" {
+                    filteredReleases = releases.filter { !$0.preRelease }
+                } else {
+                    filteredReleases = releases.filter { $0.preRelease }
+                }
+                if filteredReleases.isEmpty {
+                    completion(.failure(.noReleasesFound(code: -404)))
+                } else {
+                    completion(.success(filteredReleases))
+                }
+            } catch {
+                completion(.failure(.parsingError(code: -102)))
+            }
+        }
+        task.resume()
+    }
+    
+    /// Checks for updates based on the current version of the application.
+    ///
+    /// This function fetches the latest releases from GitHub and compares the latest version with the current version of the application.
+    /// If a newer version is available, it sets the `isUpdateAvailable` flag to `true`.
+    ///
+    /// - Parameters:
+    ///     - channel: The channel for which updates are to be checked. Valid values are "stable" or "pre-release".
+    func checkForUpdate(channel: String) {
+        fetchReleases(channel: channel) {  result in
+            switch result {
+            case .success(let releases):
+                if let latestRelease = releases.first {
+                    let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+                    if latestRelease.tagName > currentVersion {
+                        DispatchQueue.main.async {
+                            self.isUpdateAvailable = true
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("Failed to fetch releases: \(error)")
+            }
+        }
+    }
 }
+
 #endif
