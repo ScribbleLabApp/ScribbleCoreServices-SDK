@@ -7,20 +7,35 @@
 
 import Foundation
 
+/// Represents a GitHub release containing information about the release tag, whether it's a pre-release, and the assets associated with the release.
+@available(iOS 17.0, macOS 14.0, *)
 public struct GitHubRelease: Decodable {
+    
+    /// The name of the release tag.
     let tagName: String
+    
+    /// Indicates whether the release is a pre-release.
     let preRelease: Bool
+    
+    /// An array of `GitHubAsset` objects associated with the release.
     let assets: [GitHubAsset]
 }
 
+/// Represents an asset associated with a GitHub release, containing information about the asset name and its download URL.
+@available(iOS 17.0, macOS 14.0, *)
 public struct GitHubAsset: Decodable {
+    
+    /// The name of the asset.
     let name: String
+    
+    /// The URL for downloading the asset.
     let downloadUrl: String
 }
 
 /// Errors that can occur during the update process.
 ///
 /// This enum represents various errors that can occur while handling updates, including errors related to file operations, network communication, parsing data, and API responses.
+@available(iOS 17.0, macOS 14.0, *)
 public enum SCNUpdateError: Error {
     /// Indicates that the DMG file is invalid.
     case invalidDMGFile(code: Int)
@@ -316,6 +331,6 @@ public struct SCNUpdateService {
 ///
 @available(iOS 17.0, *)
 public struct SCNUpdateService {
-    
+    static let shared = SCNUpdateService()
 }
 #endif
