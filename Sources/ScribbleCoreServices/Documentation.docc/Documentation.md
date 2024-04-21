@@ -15,6 +15,9 @@ Managing essential Core Services with ease with ScribbleCoreServices (Swift)
 
 ## Overview
 
+> WARNING:
+> ScribbleCoreServices is not yet fully tested or ready for production, therefore it comes with a risk. ScribbleLabApp is not liable or obligated to provide compensation. Usage at your own risk!
+
 ScribbleCoreServices is a set of essential tools and services that enable ScribbleLab to function seamlessly. It provides a wide range of resources, including system-level services such as data management, networking, and security, as well as application-specific services that optimize ScribbleLab's performance and user experience. By leveraging ScribbleCoreServices, ScribbleLab delivers a reliable and high-quality experience to its users, aligning with Apple's accessibility guidelines and best practices.
 
 ![An illustartion reperesenting the structure of the layers](layers)
