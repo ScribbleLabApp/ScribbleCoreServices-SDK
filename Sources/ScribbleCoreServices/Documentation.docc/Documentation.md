@@ -22,12 +22,12 @@ ScribbleCoreServices is a set of essential tools and services that enable Scribb
 ScribbleCoreServices offers endpoints for ScribbleLabApp's XPCs and the underlying operating system. ScribbleLab benefits from ScribbleCoreServices' comprehensive suite of features, which help it to deliver high-quality performance and optimal user experience.
 
 > Important:
-> You may only use ScribbleCoreServices within ScribbleLabApp's Applications or Plug-Ins.
+> You may only use ScribbleCoreServices within ScribbleLabApp's Applications or Plug-Ins. Read our Developer EULA [here](https://github.com/ScribbleLabApp/ScribbleLab).
 
 ### Essentials
 
 @Links(visualStyle: detailedGrid) {
-    - <doc:SCNUpdate>
+    - <doc:QuickStart>
 }
 
 ## Topics
@@ -35,7 +35,6 @@ ScribbleCoreServices offers endpoints for ScribbleLabApp's XPCs and the underlyi
 ### Essentials
 
 - <doc:QuickStart>
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
 
 ### Utils
 
@@ -43,8 +42,18 @@ ScribbleCoreServices offers endpoints for ScribbleLabApp's XPCs and the underlyi
 - ``SCNImageCache``
 - ``SCNColor``
 
+### Updates
+
+- <doc:SCNUpdate>
+- ``SCNUpdateService-262ia``
+- ``SCNUpdateService-262ia``
+
 ### Services
 
 - ``SCNAuthService``
 - ``SCNUserService``
-- ``SCNLA`
+- ``SCNLA``
+
+### File management
+
+### Networking
