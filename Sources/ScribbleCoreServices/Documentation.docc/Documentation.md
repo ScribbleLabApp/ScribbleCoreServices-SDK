@@ -46,7 +46,6 @@ ScribbleCoreServices offers endpoints for ScribbleLabApp's XPCs and the underlyi
 
 - <doc:SCNUpdate>
 - ``SCNUpdateService-262ia``
-- ``SCNUpdateService-262ia``
 
 ### Services
 

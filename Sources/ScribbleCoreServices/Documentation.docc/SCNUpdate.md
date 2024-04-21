@@ -7,6 +7,7 @@ ScribbleLabApp's updating service
     @SupportedLanguage(objc)
     @Available(macOS, introduced: "14.0")
     @Available(MacCatalyst, introduced: "17.0")
+    @PageColor(yellow)
 }
 
 ## Overview
