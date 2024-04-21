@@ -47,4 +47,4 @@ ScribbleCoreServices offers endpoints for ScribbleLabApp's XPCs and the underlyi
 
 - ``SCNAuthService``
 - ``SCNUserService``
-- ``SCNLA
+- ``SCNLA`
