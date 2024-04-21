@@ -6,6 +6,8 @@ ScribbleLabApp's updating service
 
 SCNUpdate is a service designed for handling updates from GitHub releases. It provides functionalities for fetching the latest releases from a GitHub repository, downloading release assets, and performing necessary actions for updating the application. This service is specifically designed for macOS applications.
 
+![An illustartion referring to the Updating logic](updateHandlers)
+
 ### Error codes
 
 ##### SCNUpdateError
@@ -28,7 +30,7 @@ SCNUpdate is a service designed for handling updates from GitHub releases. It pr
 - `applicationMoveFailed`: -5
   - Indicates that moving the application failed.
 
-### SCNGitHubError
+##### SCNGitHubError
 
 - `networkError`: -100
   - Indicates a network error occurred.
@@ -45,7 +47,7 @@ SCNUpdate is a service designed for handling updates from GitHub releases. It pr
 - `apiError`: Varies
   - Indicates an error occurred in the API. The exact status code is provided in the `statusCode` parameter. Additional information is provided in the `message` parameter.
 
-### Generic Errors
+##### Generic Errors
 
 - `-1`: Varies
   - Indicates a generic error occurred. The specific error message can vary based on the context.
