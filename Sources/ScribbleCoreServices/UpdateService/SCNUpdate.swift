@@ -267,8 +267,8 @@ public struct SCNUpdateService {
     
     private func installApplication(fromDMG dmgURL: URL, mountedVolumePath: URL, completion: @escaping (Result<Void, Error>) -> Void) {
         let applicationsURL = URL(fileURLWithPath: "/Applications")
-        let appToInstallURL = applicationsURL.appendingPathComponent("YourAppName.app")
-        let appInDMGURL = mountedVolumePath.appendingPathComponent("YourAppName.app")
+        let appToInstallURL = applicationsURL.appendingPathComponent("ScribbleLab.app")
+        let appInDMGURL = mountedVolumePath.appendingPathComponent("ScribbleLab.app")
         
         guard FileManager.default.fileExists(atPath: appInDMGURL.path) else {
             completion(.failure(SCNUpdateError.invalidDMGFile(code: -3)))
