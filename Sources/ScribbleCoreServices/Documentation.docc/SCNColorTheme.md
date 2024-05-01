@@ -1,6 +1,6 @@
 # Theming: How to use SCNThemeManager in ScribbleLab to create and display custom themes
 
-summary
+Customizing your ScribbleLab Interface using `slcolorthemes` with `SCNThemeProvider` and `SCNThemeManager`.
 
 @Metadata {
     @Available(iOS, introduced: "17.0")
@@ -8,7 +8,7 @@ summary
     @Available(MacCatalyst, introduced: "17.0")
     @Available(visionOS, introduced: "1.0")
     @Available(iPadOS, introduced: "17.0")
-    @Available(Swift, introduced: "5.10")
+    @Available(ScribbleCoreServices, introduced: "1.0")
     @PageColor(yellow)
 }
 
@@ -16,12 +16,19 @@ summary
 
 Lorem impsum dolor sit amet consequteur adolevevi 
 
-![An illustartion ***](colortheme_process)
+![An illustartion of the process of using .slcolortheme files](colortheme_process)
 
-macOS:
+Location of Themes on macOS:
 
 `~/Libary/ScribbleLab/Themes`
 
-### Section header
+`~/Libary/ScribbleLabApp/ScribbleLab/Themes`
 
-<!--@START_MENU_TOKEN@-->Text<!--@END_MENU_TOKEN@-->
+Themes:
+- scribblelablight.slcolortheme
+- scribblelabdark.slcolortheme
+- tokyonight.slcolortheme
+
+## See Also
+
+- <doc:SCNCustomColorTheme>
