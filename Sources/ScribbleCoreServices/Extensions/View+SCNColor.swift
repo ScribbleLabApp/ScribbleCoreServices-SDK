@@ -11,7 +11,7 @@ Copyright (c) 2024 ScribbleLabApp.
 import Foundation
 import SwiftUI
 
-@available(iOS 17.0, *)
+@available(iOS 17.0, macOS 14.0, *)
 public extension View {
     /// Sets the foreground color of this view to the specified SCNColor.
     ///

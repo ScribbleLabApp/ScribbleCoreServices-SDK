@@ -18,7 +18,7 @@ import SwiftUI
 /// > This service is currently in development stage and so not ready for production use yet. Usage on your own risk!
 ///
 @available(iOS 17, macOS 14.0, *)
-@MainActor public class SCNUpdateService: ObservableObject {
+@MainActor public class SCNUpdateService: ObservableObject, Sendable {
     
     static let shared = SCNUpdateService()
     
@@ -49,7 +49,7 @@ import SwiftUI
         } else if channel == SCNChannel.pre_release {
             url = URL(string: "https://api.github.com/repos/\(repo)/releases/")!
         } else {
-            fatalError("SCN_ERR: Unknown Channel")
+            fatalError("SCN_ERR: Unknown Channel ・ scn err: -26")
         }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -100,7 +100,6 @@ import SwiftUI
     ///
     /// - Parameters:
     ///     - channel: The channel for which updates are to be checked. Valid values are "stable" or "pre-release".
-    ///
     @available(iOS 17, macOS 14.0, *)
     public func checkForUpdate(channel: SCNChannel) {
         fetchReleases(channel: channel) { result in
@@ -110,10 +109,11 @@ import SwiftUI
                 if latestRelease.tagName > currentVersion {
                     DispatchQueue.main.async {
                         self.isUpdateAvailable = true
+                        print("SCN_NF: Upate available - isUpdateAvailable is set to true")
                     }
                 }
             case .failure(let error):
-                print("Failed to fetch releases: \(error)")
+                print("Failed to fetch releases: \(error) ・ scn err: -xx")
             }
         }
     }
@@ -178,23 +178,152 @@ import SwiftUI
         
         downloadTask.resume()
     }
-    #endif
     
-    // TODO: - installer: mount/un-mount, move and reopen application, clean up installation
+    /// Executes a Disk Image (DMG) at the specified URL.
+    ///
+    /// - Parameters:
+    ///   - url: The URL of the DMG file to execute.
+    ///   - completion: A closure to be called when the execution completes, either successfully or with an error.
+    /// - Returns: `SCNUpdateError.mountingFailed` if the DMG mounting process fails. `SCNUpdateError.noMountedVolume` if no mounted volume is found after DMG execution.
+    ///
+    /// - Warning: This method blocks the current thread until the execution completes. The completion closure is called on the main thread.
+    ///
+    /// - SeeAlso: `installApplication(fromDMG:mountedVolumePath:completion:)`
+    @available(macOS 14.0, *)
+    public func executeDMG<T>(
+        at url: URL,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) {
+        let process = Process()
+        process.launchPath = "/usr/bin/hdiutil"
+        process.arguments = ["attach", url.path]
+        
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        
+        process.terminationHandler = { [weak self] process in
+            guard let self = self else { return }
+            
+            if process.terminationStatus == 0 {
+                Task {
+                    if let mountedVolumePath = await self.getMountedVolumePath(for: url) {
+                        let result: T = await self.installApplication(fromDMG: url, mountedVolumePath: mountedVolumePath) { (result: Result<Void, Error>) in
+                            switch result {
+                            case .success:
+                                completion(.success(() as! T))
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                        } as! T
+                        completion(.success(result))
+                    } else {
+                        completion(.failure(SCNUpdateError.noMountedVolume(code: -2)))
+                    }
+                }
+            } else {
+                completion(.failure(SCNUpdateError.mountingFailed(code: Int(process.terminationStatus))))
+            }
+        }
+        
+        process.launch()
+        process.waitUntilExit()
+    }
+    
+    /// Installs the application from the mounted DMG file to the system.
+    ///
+    /// - Parameters:
+    ///   - dmgURL: The URL of the DMG file containing the application.
+    ///   - mountedVolumePath: The path to the mounted volume containing the application.
+    ///   - completion: A closure to be called when the installation completes, either successfully or with an error.
+    @available(macOS 14.0, *)
+    public func installApplication(
+        fromDMG dmgURL: URL,
+        mountedVolumePath: URL,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        let fileManager = FileManager.default
+        let appName = dmgURL.deletingPathExtension().lastPathComponent
+        
+        guard let appBundle = fileManager.enumerator(at: mountedVolumePath, includingPropertiesForKeys: nil)?.compactMap({ $0 as? URL }).first(where: { $0.pathExtension == "app" }) else {
+            completion(.failure(SCNUpdateError.applicationNotFoundInDMG))
+            return
+        }
+        
+        let destinationDirectory = fileManager.urls(for: .applicationDirectory, in: .localDomainMask).first!
+        let destinationURL = destinationDirectory.appendingPathComponent(appName, isDirectory: true)
+        
+        do {
+            // Remove existing application at destination, if any
+            if fileManager.fileExists(atPath: destinationURL.path) {
+                try fileManager.removeItem(at: destinationURL)
+            }
+            
+            // Copy the application bundle to the destination
+            try fileManager.copyItem(at: appBundle, to: destinationURL)
+            
+            // Application installed successfully
+            completion(.success(()))
+        } catch {
+            // Installation failed
+            completion(.failure(error))
+        }
+    } // TODO: Remove old version -> launch new version
+    #endif
 }
 
-@available(iOS 17, macOS 14.0, *)
+// MARK: - Methods for SCNUpdateService
+@available(iOS 17.0, macOS 14.0, *)
 extension SCNUpdateService {
     /// Subscribes to the specified channel and stores the selection in UserDefaults.
     ///
     /// - Parameters:
     ///     - channel: The channel to subscribe to.
+    @available(iOS 17.0, macOS 14.0, *)
     public func subscribeToChannel(channel: String) {
         guard let scnChannel = SCNChannel(rawValue: channel) else {
-            fatalError("SCN_ERR: Invalid channel")
+            fatalError("SCN_ERR: Invalid channel - \(channel) not found in scope.")
         }
         
         /// Use the setAsSubscribed method to store the channel in UserDefaults
         scnChannel.setAsSubscribed()
     }
+    
+    #if os(macOS)
+    /// Retrieves the mounted volume path for the given DMG file URL.
+    ///
+    /// - Parameter url: The URL of the DMG file.
+    /// - Returns: The URL of the mounted volume if found; otherwise, nil.
+    @available(macOS 14.0, *)
+    public func getMountedVolumePath(for url: URL) -> URL? {
+        let process = Process()
+        process.launchPath = "/usr/bin/hdiutil"
+        process.arguments = ["info"]
+        
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        
+        let outputHandler = pipe.fileHandleForReading
+        
+        process.launch()
+        
+        let data = outputHandler.readDataToEndOfFile()
+        let outputString = String(data: data, encoding: .utf8)
+        
+        let lines = outputString?.components(separatedBy: .newlines)
+        
+        if let lines = lines {
+            for line in lines {
+                if line.contains(url.lastPathComponent) && line.contains("/Volumes/") {
+                    let components = line.components(separatedBy: "\t")
+                    if components.count > 1 {
+                        let volumePath = components[1]
+                        return URL(fileURLWithPath: volumePath)
+                    }
+                }
+            }
+        }
+        
+        return nil
+    }
+    #endif
 }

@@ -42,6 +42,9 @@ public enum SCNUpdateError: Error {
     /// Represents errors when the user is not eligible.
     case userNotEligible(code: Int)
     
+    /// Indicates that the application bundle was not found within the DMG.
+    case applicationNotFoundInDMG
+    
     /// Represents errors related to API responses.
     case apiError(statusCode: Int, httpsStatusCode: Int, message: String?)
 }

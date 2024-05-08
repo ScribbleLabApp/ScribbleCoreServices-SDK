@@ -7,9 +7,13 @@
 
 import Foundation
 
+/// An enumeration representing different channels for updating ScribbleLab.
 @available(iOS 17.0, macOS 14.0, *)
 public enum SCNChannel: String {
+    /// The stable release channel
     case stable
+    
+    /// The pre-release channel which offers alpha/beta versions of ScribbleLab
     case pre_release
     
     /// Reads the subscribed channel from UserDefaults.
