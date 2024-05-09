@@ -83,12 +83,23 @@ import SwiftUI
                 return
             }
             
+//            do {
+//                let release = try JSONDecoder().decode(GitHubRelease.self, from: data)
+//                self.latestRelease = release
+//                completion(.success(release))
+//            } catch {
+//                completion(.failure(.parsingError(code: -102)))
+//            }
             do {
                 let release = try JSONDecoder().decode(GitHubRelease.self, from: data)
-                self.latestRelease = release
-                completion(.success(release))
+                DispatchQueue.main.async {
+                    self.latestRelease = release
+                    completion(.success(release))
+                }
             } catch {
-                completion(.failure(.parsingError(code: -102)))
+                DispatchQueue.main.async {
+                    completion(.failure(.parsingError(code: -102)))
+                }
             }
         }
         task.resume()
