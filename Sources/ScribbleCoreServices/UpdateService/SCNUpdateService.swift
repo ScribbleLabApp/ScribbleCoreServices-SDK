@@ -20,7 +20,7 @@ import SwiftUI
 @available(iOS 17, macOS 14.0, *)
 @MainActor public class SCNUpdateService: ObservableObject, Sendable {
     
-    static let shared = SCNUpdateService()
+    public static let shared = SCNUpdateService()
     
     public init() {
         self.latestRelease = nil
