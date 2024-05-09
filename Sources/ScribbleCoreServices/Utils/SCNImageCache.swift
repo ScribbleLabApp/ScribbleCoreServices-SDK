@@ -10,6 +10,7 @@ Copyright (c) 2024 ScribbleLabApp.
 import Foundation
 import SwiftUI
 
+#if os(iOS)
 @available(iOS 17.0, *)
 public class SCNImageCache {
     static let shared = SCNImageCache()
@@ -33,4 +34,4 @@ public class SCNImageCache {
         cache.storeCachedResponse(cachedData, for: URLRequest(url: response.url!))
     }
 }
-
+#endif

@@ -10,6 +10,7 @@ Copyright (c) 2024 ScribbleLabApp.
 import SwiftUI
 import WebKit
 
+#if os(iOS)
 /// A SwiftUI view representing a web view.
 ///
 /// This view wraps a `WKWebView` and provides functionality to load a web page from a given URL.
@@ -73,3 +74,4 @@ struct SCNWebView: UIViewControllerRepresentable {
         }
     }
 }
+#endif
