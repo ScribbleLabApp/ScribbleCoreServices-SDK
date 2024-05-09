@@ -22,6 +22,11 @@ import SwiftUI
     
     static let shared = SCNUpdateService()
     
+    public init() {
+        self.latestRelease = nil
+        self.isUpdateAvailable = false
+    }
+    
     /// The GitHub repository name in the format "`<username>/<repository>`".
     let repo = "ScribbleLabApp/ScribbleLab"
     
