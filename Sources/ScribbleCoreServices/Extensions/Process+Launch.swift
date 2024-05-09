@@ -8,8 +8,10 @@ Copyright (c) 2024 ScribbleLabApp.
 */
 
 import Foundation
+import ObjectiveC
 
 #if os(macOS)
+@available(macOS 14.0, *)
 public extension Process {
     enum LaunchError: Swift.Error {
         case exit(Int32)
@@ -186,4 +188,3 @@ private extension Data {
     }
 }
 #endif
-
