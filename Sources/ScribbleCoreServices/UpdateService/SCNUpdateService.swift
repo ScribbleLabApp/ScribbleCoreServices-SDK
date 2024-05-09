@@ -35,7 +35,7 @@ import SwiftUI
     /// A Boolean value indicating whether an update is available.
     ///
     /// This state variable is used to track whether there is a newer version of the application available for update
-    @Published var isUpdateAvailable: Bool = false
+    @Published public var isUpdateAvailable: Bool = false
     
     /// Fetches the latest releases from GitHub.
     ///
