@@ -14,7 +14,7 @@ extension SwiftUI.Binding {
     ///
     /// - Parameter value: The value to bind.
     /// - Returns: A binding to the provided value.
-    public func bind<Value>(value: Value) -> SwiftUI.Binding<Value>  {
+    public func bind<T>(value: T) -> SwiftUI.Binding<T>  {
         var value = value
         return .init(get: { value }, set: { value = $0 })
     }
@@ -23,7 +23,7 @@ extension SwiftUI.Binding {
     ///
     /// - Parameter value: The initial value for the binding.
     /// - Returns: A new binding instance.
-    static func variable(_ value: Value) -> Self {
+    public static func variable(_ value: Value) -> Self {
         var value = value
         return self.init(get: { value }, set: { value = $0 })
     }
