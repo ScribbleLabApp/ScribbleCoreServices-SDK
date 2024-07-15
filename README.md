@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repository will no longer be maintained. The source content will be moved to the [ScribbleFoundation](https://github.com/ScribbleLabApp/ScribbleFoundation) repository. Please check there for future updates and contributions.
+
 # ScribbleCoreServices
 
 ScribbleCoreServices-SDK provides essential core services for ScribbleLabApp's iOS applications, offering a suite of functionalities to streamline development and enhance user experience.
